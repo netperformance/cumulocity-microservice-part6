@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cumulocity.microservice.autoconfigure.MicroserviceApplication;
-import com.cumulocity.microservice.settings.service.MicroserviceSettingsService;
 import com.cumulocity.microservice.subscription.service.MicroserviceSubscriptionsService;
 import com.cumulocity.model.ID;
 import com.cumulocity.model.idtype.GId;
@@ -49,6 +48,7 @@ public class App{
 
     // You need the inventory API to handle managed objects e.g. creation. You will find this class within the C8Y java client library.
     private final InventoryApi inventoryApi;
+    
     // you need the identity API to handle the external ID e.g. IMEI of a managed object. You will find this class within the C8Y java client library.
     private final IdentityApi identityApi;
     
@@ -57,21 +57,17 @@ public class App{
     
     // Microservice subscription
     private final MicroserviceSubscriptionsService subscriptionService;
-        
-    // To access the tenant options
-    private final MicroserviceSettingsService microserviceSettingsService;
+    
     
     @Autowired
     public App( InventoryApi inventoryApi, 
     			IdentityApi identityApi, 
     			MicroserviceSubscriptionsService subscriptionService,
-    			MeasurementApi measurementApi,
-    			MicroserviceSettingsService microserviceSettingsService) {
+    			MeasurementApi measurementApi) {
         this.inventoryApi = inventoryApi;
         this.identityApi = identityApi;
         this.subscriptionService = subscriptionService;
         this.measurementApi = measurementApi;
-        this.microserviceSettingsService = microserviceSettingsService;
     }
     
     // Create every x sec a new measurement
